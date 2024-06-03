@@ -3,7 +3,7 @@
 Fichier : database_tools.py
 Auteur : OM 2023.03.21
 Nécessite un fichier de configuration externe : ".env"
-Nécessite un fichier DUMP en MySql de la BD : /database/NOM_PRENOM_INFO1X_SUJET_164_2022.sql
+Nécessite un fichier DUMP en MySql de la BD : /tellenne_rayhan_expi1a_immobilier_164_2024.sql
 """
 import os
 import re
