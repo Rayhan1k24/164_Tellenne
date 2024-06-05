@@ -101,8 +101,8 @@ def genres_ajouter_wtf():
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 
-                flash(f"Données insérées !!", "success")
-                print(f"Données insérées !!")
+                flash(f"Données agent(s) insérées !!", "success")
+                print(f"Données agent(s) insérées !!")
 
                 # Pour afficher et constater l'insertion de la valeur, on affiche en ordre inverse. (DESC)
                 return redirect(url_for('genres_afficher', order_by='DESC', id_genre_sel=0))
@@ -224,7 +224,7 @@ def genre_delete_wtf():
                 data_films_attribue_genre_delete = session['data_films_attribue_genre_delete']
                 print("data_films_attribue_genre_delete ", data_films_attribue_genre_delete)
 
-                flash(f"Effacer le genre de façon définitive de la BD !!!", "danger")
+                flash(f"Effacer l'agent de façon définitive de la BD !!!", "danger")
                 btn_submit_del = True
 
             if form_delete.submit_btn_del.data:
@@ -237,8 +237,8 @@ def genre_delete_wtf():
                     mconn_bd.execute(str_sql_delete_films_genre, valeur_delete_dictionnaire)
                     mconn_bd.execute(str_sql_delete_idgenre, valeur_delete_dictionnaire)
 
-                flash(f"Genre définitivement effacé !!", "success")
-                print(f"Genre définitivement effacé !!")
+                flash(f"Agent définitivement effacé !!", "success")
+                print(f"Agent définitivement effacé !!")
                 return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=0))
 
         if request.method == "GET":

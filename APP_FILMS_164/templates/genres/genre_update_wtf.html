@@ -1,57 +1,115 @@
 {% extends "base.html" %}
 {% block title %} Editer un GENRE (WTF) {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Editer un GENRE
-			</p>
-			<form action="" method="POST" novalidate>
-				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_update.hidden_tag() }}
-				<div class="form-group">
-					</p>
+<style>
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{{ url_for('static', filename='arriere_plan.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Ajustez l'opacité selon les besoins */
+        z-index: 0;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+        color: #343a40; /* Gris foncé */
+    }
+
+    .btn-custom {
+        background-color: #343a40; /* Gris foncé */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        box-shadow: none; /* Retire l'ombre du bouton */
+        border: none; /* Retire la bordure du bouton */
+    }
+
+    .btn-custom:hover, .btn-custom:focus {
+        background-color: #343a40; /* Gris foncé pour le bouton au survol et au focus */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        box-shadow: none; /* Retire l'ombre du bouton */
+        border: none; /* Retire la bordure du bouton */
+    }
+
+    .form-group p, .form-group label, p, label, h1, h2, h3, h4, h5, h6 {
+        color: #343a40 !important; /* Gris foncé pour les textes */
+        text-shadow: 0 0 1px #ffffff, 0 0 2px rgba(255, 255, 255, .3), 0 0 5px rgba(255, 255, 255, .3);
+    }
+
+    table th, table td {
+        color: #343a40; /* Gris foncé pour le texte des tables */
+        background-color: transparent !important; /* Fond transparent pour la case */
+    }
+
+    .custom-hr {
+        display: none; /* Cache la ligne violette */
+    }
+</style>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="container content">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Editer un GENRE
+            </p>
+            <form action="" method="POST" novalidate>
+                <!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+                {{ form_update.hidden_tag() }}
+                <div class="form-group">
                     <p>
                         {{ form_update.nom.label }}<br>
-						{{ form_update.nom(size=32) }}<br>
-						{% for error in form_update.nom.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
+                        {{ form_update.nom(size=32) }}<br>
+                        {% for error in form_update.nom.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
                     <p>
                         {{ form_update.prenom.label }}<br>
-						{{ form_update.prenom(size=32) }}<br>
-						{% for error in form_update.prenom.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
+                        {{ form_update.prenom(size=32) }}<br>
+                        {% for error in form_update.prenom.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
                     <p>
                         {{ form_update.email.label }}<br>
-						{{ form_update.email(size=32) }}<br>
-						{% for error in form_update.email.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
+                        {{ form_update.email(size=32) }}<br>
+                        {% for error in form_update.email.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
                     <p>
                         {{ form_update.telephone.label }}<br>
-						{{ form_update.telephone(size=32) }}<br>
-						{% for error in form_update.telephone.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update.date_agents.label }}<br>
-						{{ form_update.date_agents(size=32) }}<br>
-						{% for error in form_update.date_agents.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-				</div>
-				{{ form_update.submit(class="btn btn-primary") }}
-			</form>
-		</div>
-	</div>
+                        {{ form_update.telephone(size=32) }}<br>
+                        {% for error in form_update.telephone.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form_update.date_agents.label }}<br>
+                        {{ form_update.date_agents(size=32) }}<br>
+                        {% for error in form_update.date_agents.errors %}
+                            <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                </div>
+                {{ form_update.submit(class="btn btn-primary btn-custom") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
-

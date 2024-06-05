@@ -1,28 +1,89 @@
 {% extends "base.html" %}
 {% block title %} Ajouter un GENRE (WTF) {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Ajouter un nouveau GENRE (WTForms)
-			</p>
-			<form action="" method="POST" novalidate>
-				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form.hidden_tag() }}
-				<div class="form-group">
-					<p>
-						{{ form.nom_genre_wtf.label }}<br>
-						{{ form.nom_genre_wtf(size=32) }}<br>
-						{% for error in form.nom_genre_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-				</div>
-				{{ form.submit(class="btn btn-primary") }}
-			</form>
-		</div>
-	</div>
+<style>
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{{ url_for('static', filename='arriere_plan.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Ajustez l'opacité selon les besoins */
+        z-index: 0;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+        color: #343a40; /* Gris foncé */
+    }
+
+    .btn-custom {
+        background-color: #343a40; /* Gris foncé */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        box-shadow: none; /* Retire l'ombre du bouton */
+        border: none; /* Retire la bordure du bouton */
+    }
+
+    .btn-custom:hover, .btn-custom:focus {
+        background-color: #343a40; /* Gris foncé pour le bouton au survol et au focus */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        box-shadow: none; /* Retire l'ombre du bouton */
+        border: none; /* Retire la bordure du bouton */
+    }
+
+    .form-group p, .form-group label, p, label, h1, h2, h3, h4, h5, h6 {
+        color: #343a40 !important; /* Gris foncé pour les textes */
+        text-shadow: 0 0 1px #ffffff, 0 0 2px rgba(255, 255, 255, .3), 0 0 5px rgba(255, 255, 255, .3);
+    }
+
+    table th, table td {
+        color: #343a40; /* Gris foncé pour le texte des tables */
+        background-color: transparent !important; /* Fond transparent pour la case */
+    }
+
+    .custom-hr {
+        display: none; /* Cache la ligne violette */
+    }
+</style>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="container-fluid content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    Ajouter un nouvel agent
+                </p>
+                <form action="" method="POST" novalidate>
+                    <!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <p>
+                            {{ form.nom_genre_wtf.label }}<br>
+                            {{ form.nom_genre_wtf(size=32) }}<br>
+                            {% for error in form.nom_genre_wtf.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <button type="submit" class="btn btn-custom">{{ form.submit.label.text }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
-

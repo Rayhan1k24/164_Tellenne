@@ -1,131 +1,156 @@
 {% extends "base.html" %}
 {% block title %} Afficher FILMS GENRES {% endblock %}
 {% block head %}
-    <!--
-        OM 2020.05.04
-        On utilise le composant "tags-selector-tagselect" juste dans cette page,
-         il n'est pas nécessaire de la charger pour chaque page
-        c'est pourquoi il ne se trouve pas dans "base.html" mais ici
-        entre les balises JINJA "block head" "endblock"
-        -->
     <link rel="stylesheet" href="{{ url_for('static', filename='tags-selector-tagselect/jquery.tagselect.css') }}">
     <script src="{{ url_for('static', filename='tags-selector-tagselect/jquery.tagselect.js') }}"></script>
 {% endblock %}
 {% block body %}
+<style>
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{{ url_for('static', filename='arriere_plan.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
 
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Ajustez l'opacité selon les besoins */
+        z-index: 0;
+    }
 
-<!--
-    OM 2020.05.04
-    Il faut éviter de placer des instructions css n'importe où et surtout en plein milieu de nulle part,
-    pour dépanner l'application ce n'est vraiment pas top...
-    Mais Flask ne reconnaît pas les instructions ci-dessous lorsqu'elles sont dans un fichier externe
--->
+    .content {
+        position: relative;
+        z-index: 1;
+        color: #343a40; /* Couleur de l'écriture en gris foncé */
+    }
 
-    <style>
-        ol, ul, li {
-            list-style: none;
-        }
-    </style>
+    .navbar-custom {
+        background-color: #343a40; /* Gris foncé */
+    }
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+        color: #ffffff !important; /* Blanc pour le texte */
+    }
 
+    .brand-custom {
+        background-color: #343a40; /* Gris foncé */
+        color: #ffffff !important; /* Blanc pour le texte */
+        padding: 10px;
+        border-radius: 5px;
+    }
 
-<div class="container">
-		<div class="col-md-12">
-			<p>
-				Tagselect, c'est une DROPBOX qui surgit quand on sélectionne l'espace "TAGS". Pour votre information, le composant TAGSELECT est à disposition sur ce site :
-                 <a href="https://www.jqueryscript.net/form/tags-selector-tagselect.html"
-                    target="_blank">https://www.jqueryscript.net/form/tags-selector-tagselect.html</a>
+    .header-custom h1, .header-custom p, .header-custom h2 {
+        color: #343a40; /* Gris foncé */
+        text-shadow: 0 0 1px rgba(255, 255, 255, .3), 0 0 3px #ffffff, 0 0 .5rem #ffffff, 0 0 2rem #ffffff;
+    }
 
-			</p>
-            <p>
-                Films.
+    .small-text-custom {
+        color: #343a40; /* Gris foncé */
+        text-shadow: 0 0 1px rgba(255, 255, 255, .3), 0 0 3px #ffffff, 0 0 .5rem #ffffff, 0 0 2rem #ffffff;
+    }
+
+    .card-custom {
+        background-color: transparent; /* Fond transparent pour les cartes */
+        color: #343a40; /* Gris foncé pour le texte des cartes */
+    }
+
+    .btn-custom {
+        background-color: #343a40; /* Gris foncé pour les boutons */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        box-shadow: 0 0 2px #ffffff, 0 0 4px #ffffff, 0 0 1rem rgba(255, 255, 255, .3), 0 0 4rem rgba(255, 255, 255, .3);
+    }
+
+    .text-custom {
+        color: #343a40 !important; /* Gris foncé pour les textes à l'intérieur des cartes */
+    }
+
+    .table-custom th, .table-custom td {
+        color: #343a40; /* Gris foncé */
+        background-color: transparent !important; /* Fond transparent */
+    }
+</style>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="container-fluid content">
+    <div class="container">
+        <div class="col-md-12">
             </p>
-            <table class="table table-responsive-sm">
+            <table class="table table-custom">
                 {% if data_film_selected %}
                     <thead>
                         <tr>
-                            <th class="">
-                                ID
-                            </th>
-                            <th class="">
-                                nom_film
-                            </th>
-                            <th class="">
-                                email
-                            </th>
-                            <th class="">
-                                telephone
-                            </th>
-                            <th class="">
-                                date_film
-                            </th>
+                            <th class="">ID_film</th>
+                            <th class="">nom_film</th>
+                            <th class="">email</th>
+                            <th class="">telephone</th>
+                            <th class="">date_film</th>
+                            <th class="">image</th>
                         </tr>
                     </thead>
-            {% endif %}
+                {% endif %}
 
-            {% for row in data_film_selected %}
-				<tbody>
-					<tr>
-						<td class="align-middle">
-							{{ row.ID_film }}
-						</td>
-						<td class="align-middle">
-							{{ row.nom_film }}
-						</td>
-						<td class="align-middle">
-							{{ row.email|default("", True) }}
-						</td>
-						<td class="align-middle">
-							{{ row.telephone|default("", True) }}
-						</td>
-						<td class="align-middle">
-							{{ row.date_film|default("", True) }}
-						</td>
-						<td class="align-middle">
-                            <img class="img" src={{ row.cover_link_film|default(None, True) }} style="border: 0;display:block; width:150px; max-height:auto;" alt = "image masquée FFP67 (in COVID-29 Memory) (absente) mod 164">
-						</td>
-					</tr>
-				</tbody>
-            {% else %}
-				<tbody>
-					<tr>
-						<td>
-							Aucun film.
-						</td>
-						<td>
-							<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
-						</td>
-					</tr>
-				</tbody>
-            {% endfor %}
-			</table>
-		</div>
-	</div>
+                {% for row in data_film_selected %}
+                <tbody>
+                    <tr>
+                        <td class="align-middle">{{ row.ID_film }}</td>
+                        <td class="align-middle">{{ row.nom_film }}</td>
+                        <td class="align-middle">{{ row.email|default("", True) }}</td>
+                        <td class="align-middle">{{ row.telephone|default("", True) }}</td>
+                        <td class="align-middle">{{ row.date_film|default("", True) }}</td>
+                        <td class="align-middle">
+                            <img src="{{ url_for('static', filename='villa.png') }}" style="border: 0;display:block; width:150px; max-height:auto;" alt="Image of film">
+                        </td>
+                    </tr>
+                </tbody>
+                {% else %}
+                <tbody>
+                    <tr>
+                        <td>Aucun film.</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 
-<div class="container">
-    <div class="row mx-md-n5">
-      <div class="col px-md-5">
-          <div class="p-3">
-            <form id="form_tags_select_confirm" action="{{ url_for('update_genre_film_selected') }}" method="POST">
-                <div class="qtagselect isw360">
-                    <select id="OM_JTSD" name="name_select_tags" class="qtagselect__select" multiple>
-                        {% for row in data_genres_non_attribues %}
-                            <option value="{{ row.ID_genre }}" name="name_tags_non_attribues_html" class="isblue" >{{ row.genre }}</option>
-                        {% endfor %}
-
-                        {% for row in data_genres_attribues %}
-                            <option value="{{ row.ID_genre }}" name="name_tags_attribues_html" class="ispurple" selected>{{ row.genre }}</option>
-                        {% endfor %}
-                    </select>
+    <div class="container">
+        <div class="row mx-md-n5">
+            <div class="col px-md-5">
+                <div class="p-3">
+                    <form id="form_tags_select_confirm" action="{{ url_for('update_genre_film_selected') }}" method="POST">
+                        <div class="qtagselect isw360">
+                            <select id="OM_JTSD" name="name_select_tags" class="qtagselect__select" multiple>
+                                {% for row in data_genres_non_attribues %}
+                                    <option value="{{ row.ID_genre }}" name="name_tags_non_attribues_html" class="isblue">{{ row.genre }}</option>
+                                {% endfor %}
+                                {% for row in data_genres_attribues %}
+                                    <option value="{{ row.ID_genre }}" name="name_tags_attribues_html" class="ispurple" selected>{{ row.genre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
                 </div>
-
-            </form>
-          </div>
-      </div>
-      <div class="col px-md-5">
-          <div class="p-3">
-            <input type="submit" form="form_tags_select_confirm" class="btn btn-warning" value="Modifier">
-          </div>
-      </div>
+            </div>
+            <div class="col px-md-5">
+                <div class="p-3">
+                    <input type="submit" form="form_tags_select_confirm" class="btn btn-warning btn-custom" value="Modifier">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -133,11 +158,11 @@
 {% block javascript %}
 <script>
     $('.qtagselect__select').tagselect({
-    // Paramètres du composant : https://www.jqueryscript.net/form/tags-selector-tagselect.html
-    // maximum number of tags allowed to select
-      'maxTag': 100,
-    // error message,
-      'tagMessage': '100 tags au max !'
+        // Paramètres du composant : https://www.jqueryscript.net/form/tags-selector-tagselect.html
+        // maximum number of tags allowed to select
+        'maxTag': 100,
+        // error message,
+        'tagMessage': '100 tags au max !'
     });
 </script>
 {% endblock %}

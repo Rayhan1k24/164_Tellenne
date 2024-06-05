@@ -16,14 +16,14 @@ class FormWTFAjouterGenres(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_genre_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_genre_wtf = StringField("Clavioter le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_genre_wtf = StringField("Saisir le nom de l'agent", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                    Regexp(nom_genre_regexp,
                                                                           message="Pas de chiffres, de caractères "
                                                                                   "spéciaux, "
                                                                                   "d'espace à double, de double "
                                                                                   "apostrophe, de double trait union")
                                                                    ])
-    submit = SubmitField("Enregistrer genre")
+    submit = SubmitField("Enregistrer l'agent")
 
 
 class FormWTFUpdateGenre(FlaskForm):
@@ -32,7 +32,7 @@ class FormWTFUpdateGenre(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_genre_update_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    prenom = StringField("Clavioter le prenom ",validators=[Length(min=2, max=20, message="min 2 max 20"),
+    prenom = StringField("Saisir le prenom de l'agent",validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                     Regexp(nom_genre_update_regexp,
                                                                             message="Pas de chiffres, de "
                                                                                     "caractères "
@@ -41,7 +41,7 @@ class FormWTFUpdateGenre(FlaskForm):
                                                                                     "apostrophe, de double trait "
                                                                                     "union")
                                                                     ])
-    nom = StringField("Clavioter le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom = StringField("Saisir le nom de l'agent", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                      Regexp(nom_genre_update_regexp,
                                                                             message="Pas de chiffres, de "
                                                                                     "caractères "
@@ -50,7 +50,7 @@ class FormWTFUpdateGenre(FlaskForm):
                                                                                     "apostrophe, de double trait "
                                                                                     "union")
                                                                     ])
-    email = StringField("Clavioter l'email ",validators=[Length(min=2, max=255, message="min 2 max 20"),
+    email = StringField("Saisir l'email de l'agent",validators=[Length(min=2, max=255, message="min 2 max 20"),
                                                                     Regexp(nom_genre_update_regexp,
                                                                             message="Pas de chiffres, de "
                                                                                     "caractères "
@@ -59,7 +59,7 @@ class FormWTFUpdateGenre(FlaskForm):
                                                                                     "apostrophe, de double trait "
                                                                                     "union")
                                                                     ])
-    telephone = StringField("Clavioter le telephone ",validators=[Length(min=2, max=20, message="min 2 max 20"),
+    telephone = StringField("Saisir le numéro de l'agent",validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                     Regexp(nom_genre_update_regexp,
                                                                            message="Pas de chiffres, de "
                                                                                    "caractères "
@@ -68,9 +68,9 @@ class FormWTFUpdateGenre(FlaskForm):
                                                                                    "apostrophe, de double trait "
                                                                                    "union")
                                                                     ])
-    date_agents = DateField("Essai date", validators=[InputRequired("Date obligatoire"),
+    date_agents = DateField("Date", validators=[InputRequired("Date obligatoire"),
                                                                DataRequired("Date non valide")])
-    submit = SubmitField("Update genre")
+    submit = SubmitField("Modifier les informations de l'agents")
 
 
 class FormWTFDeleteGenre(FlaskForm):
@@ -82,7 +82,7 @@ class FormWTFDeleteGenre(FlaskForm):
         submit_btn_conf_del : Bouton de confirmation pour effacer un "genre".
         submit_btn_annuler : Bouton qui permet d'afficher la table "t_genre".
     """
-    nom_genre_delete_wtf = StringField("Effacer ce genre")
-    submit_btn_del = SubmitField("Effacer genre")
-    submit_btn_conf_del = SubmitField("Etes-vous sur d'effacer ?")
+    nom_genre_delete_wtf = StringField("Effacer un agent")
+    submit_btn_del = SubmitField("Effacer l'agent")
+    submit_btn_conf_del = SubmitField("Etes-vous sur d'effacer cet agent ?")
     submit_btn_annuler = SubmitField("Annuler")

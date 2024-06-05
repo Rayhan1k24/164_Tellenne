@@ -1,84 +1,104 @@
 {% extends "base.html" %}
 {% block title %} Effacer un FILM (WTF) {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Effacer un FILM
-			</p>
-			<table class="table table-responsive-sm">
-				{% if data_film_del %}
-				<thead>
-				<tr>
-					<th class="">
-						ID
-					</th>
-					<th class="">
-						nom_film
-					</th>
-					<th class="">
-						email
-					</th>
-					<th class="">
-						telephone
-					</th>
-					<th class="">
-						date_film
-					</th>
-				</tr>
-				</thead>
-				{% endif %}
-				{% for row in data_film_del %}
-				<tbody>
-				<tr>
-					<th class="align-middle">
-						{{ row.ID_film }}
-					</th>
-					<th class="align-middle">
-						{{ row.nom_film }}
-					</th>
-					<th class="align-middle">
-						{{ row.email }}
-					</th>
-					<th class="align-middle">
-						{{ row.telephone }}
-					</th>
-					<th class="align-middle">
-						{{ row.date_film }}
-					</th>
-					<th class="align-middle">
-                     <img src="{{ url_for('static', filename='villa.png') }}" style="border: 0;display:block; width:150px; max-height:auto;" alt="Image of film">
-					</th>
+<style>
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{{ url_for('static', filename='arriere_plan.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
 
-				<tr>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Ajustez l'opacité selon les besoins */
+        z-index: 0;
+    }
 
-				</tr>
-				</tr>
-				</tbody>
-				{% else %}
-				<tbody>
-				<tr>
+    .content {
+        position: relative;
+        z-index: 1;
+        color: #343a40; /* Gris foncé */
+        text-shadow: 0 0 1px #ffffff, 0 0 2px rgba(255, 255, 255, .3), 0 0 5px rgba(255, 255, 255, .3); /* Ombres blanches */
+    }
 
-				</tr>
-				</tbody>
-				{% endfor %}
+    .form-group p, .form-group label, .table th, .table td {
+        color: #343a40; /* Gris foncé pour les textes */
+        text-shadow: 0 0 1px #ffffff, 0 0 2px rgba(255, 255, 255, .3), 0 0 5px rgba(255, 255, 255, .3); /* Ombres blanches */
+        background-color: transparent !important; /* Fond transparent pour les cellules */
+    }
 
-			</table>
+    .btn-info, .btn-danger, .btn-primary {
+        background-color: #343a40 !important; /* Gris foncé */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        border: none;
+        box-shadow: 0 0 2px #495057, 0 0 4px #fff, 0 0 1rem #fff, 0 0 4rem rgba(255, 255, 255, .3); /* Effets de bordure et d'ombre */
+    }
+</style>
 
-			<form action="" method="POST" novalidate>
-				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_delete_film.hidden_tag() }}
-				{{ form_delete_film.submit_btn_conf_del_film(class="btn btn-info") }}
+<div class="background"></div>
+<div class="overlay"></div>
 
-				{% if btn_submit_del %}
-					{{ form_delete_film.submit_btn_del_film(class="btn btn-danger") }}
-				{% endif %}
+<div class="container content">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Effacer un FILM
+            </p>
+            <table class="table table-responsive-sm">
+                {% if data_film_del %}
+                <thead>
+                <tr>
+                    <th class="">ID</th>
+                    <th class="">nom_film</th>
+                    <th class="">email</th>
+                    <th class="">telephone</th>
+                    <th class="">date_film</th>
+                </tr>
+                </thead>
+                {% endif %}
+                {% for row in data_film_del %}
+                <tbody>
+                <tr>
+                    <th class="align-middle">{{ row.ID_film }}</th>
+                    <th class="align-middle">{{ row.nom_film }}</th>
+                    <th class="align-middle">{{ row.email }}</th>
+                    <th class="align-middle">{{ row.telephone }}</th>
+                    <th class="align-middle">{{ row.date_film }}</th>
+                    <th class="align-middle">
+                        <img src="{{ url_for('static', filename='villa.png') }}" style="border: 0; display:block; width:150px; max-height:auto;" alt="Image of film">
+                    </th>
+                </tr>
+                </tbody>
+                {% else %}
+                <tbody>
+                <tr>
+                    <td colspan="6">Aucun film à effacer.</td>
+                </tr>
+                </tbody>
+                {% endfor %}
+            </table>
 
-				{{ form_delete_film.submit_btn_annuler(class="btn btn-primary") }}
-			</form>
-		</div>
-	</div>
+            <form action="" method="POST" novalidate>
+                <!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+                {{ form_delete_film.hidden_tag() }}
+                {{ form_delete_film.submit_btn_conf_del_film(class="btn btn-info") }}
+
+                {% if btn_submit_del %}
+                    {{ form_delete_film.submit_btn_del_film(class="btn btn-danger") }}
+                {% endif %}
+
+                {{ form_delete_film.submit_btn_annuler(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
-

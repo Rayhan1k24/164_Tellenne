@@ -1,49 +1,93 @@
 {% extends "base.html" %}
 {% block title %} Editer un FILM (WTF) {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Editer un FILM
-			</p>
-			<form action="" method="POST" novalidate>
-				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_update_film.hidden_tag() }}
-				<div class="form-group">
-					<p>
-						{{ form_update_film.nom_film.label }}<br>
-						{{ form_update_film.nom_film(cols=50, rows=3) }}<br>
-						{% for error in form_update_film.nom_film.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update_film.email.label }}<br>
-						{{ form_update_film.email(size=32) }}<br>
-						{% for error in form_update_film.email.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update_film.telephone.label }}<br>
-						{{ form_update_film.telephone(cols=50, rows=10) }}<br>
-						{% for error in form_update_film.telephone.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update_film.date_film.label }}<br>
-						{{ form_update_film.date_film(cols=100, rows=10) }}<br>
-						{% for error in form_update_film.date_film.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-				</div>
-				{{ form_update_film.submit(class="btn btn-primary") }}
-			</form>
-		</div>
-	</div>
+<style>
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{{ url_for('static', filename='arriere_plan.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Ajustez l'opacité selon les besoins */
+        z-index: 0;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+        color: #343a40; /* Gris foncé */
+        text-shadow: 0 0 1px #ffffff, 0 0 2px rgba(255, 255, 255, .3), 0 0 5px rgba(255, 255, 255, .3); /* Ombres blanches */
+    }
+
+    .form-group p, .form-group label {
+        color: #343a40; /* Gris foncé pour les textes */
+        text-shadow: 0 0 1px #ffffff, 0 0 2px rgba(255, 255, 255, .3), 0 0 5px rgba(255, 255, 255, .3); /* Ombres blanches */
+    }
+
+    .btn-primary {
+        background-color: #343a40 !important; /* Gris foncé */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        border: none;
+        box-shadow: 0 0 2px #495057, 0 0 4px #fff, 0 0 1rem #fff, 0 0 4rem rgba(255, 255, 255, .3); /* Effets de bordure et d'ombre */
+    }
+</style>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="container content">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Editer un FILM
+            </p>
+            <form action="" method="POST" novalidate>
+                <!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+                {{ form_update_film.hidden_tag() }}
+                <div class="form-group">
+                    <p>
+                        {{ form_update_film.nom_film.label }}<br>
+                        {{ form_update_film.nom_film(cols=50, rows=3) }}<br>
+                        {% for error in form_update_film.nom_film.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form_update_film.email.label }}<br>
+                        {{ form_update_film.email(size=32) }}<br>
+                        {% for error in form_update_film.email.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form_update_film.telephone.label }}<br>
+                        {{ form_update_film.telephone(size=32) }}<br>
+                        {% for error in form_update_film.telephone.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                    <p>
+                        {{ form_update_film.date_film.label }}<br>
+                        {{ form_update_film.date_film(size=32) }}<br>
+                        {% for error in form_update_film.date_film.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    </p>
+                </div>
+                {{ form_update_film.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
-

@@ -1,79 +1,154 @@
 {% extends "base.html" %}
 {% block title %} t_agents {% endblock %}
 {% block body %}
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Agents
-			</p>
-            <table class="table table-bordered table-sm">
-            {% if data %}
-                <thead>
-                    <tr>
-                        <th class="align-middle">
-                            ID
-                        </th>
-                        <th class="align-middle">
-                            Nom
-                        </th>
-                        <th class="align-middle">
-							Prenom
-                        </th>
-                        <th class="align-middle">
-                            email
-                        </th>
-                        <th class="align-middle">
-                            telephone
-                        </th>
-                    </tr>
-                </thead>
-            {% endif %}
+<style>
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('{{ url_for('static', filename='arriere_plan.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        z-index: -1;
+    }
 
-            {% for row in data %}
-				<tbody>
-					<tr>
-						<td class="align-middle">
-							{{ row.ID_agents }}
-						</td>
-						<td class="align-middle">
-							{{ row.nom }}
-						</td>
-						<td class="align-middle">
-							{{ row.prenom }}
-						</td>
-                        <td class="align-middle">
-							{{ row.email }}
-                        </td>
-                        <td class="align-middle">
-							{{ row.telephone }}
-                        </td>
-						<td class="text-center" class="align-middle">
-							<a class="btn btn-primary" href="{{ url_for('genres_ajouter_wtf') }}" role="button">Ajouter</a>
-						</td>
-						<td class="text-center" class="align-middle">
-							<a class="btn btn-warning" href="{{ url_for('genre_update_wtf', id_genre_btn_edit_html=row.ID_agents) }}" role="button">Edit</a>
-						</td>
-						<td class="text-center" class="align-middle">
-							<a class="btn btn-danger" href="{{ url_for('genre_delete_wtf', id_genre_btn_delete_html=row.ID_agents) }}" role="button">Delete</a>
-						</td>
-					</tr>
-				</tbody>
-            {% else %}
-				<tbody>
-					<tr>
-						<td>
-							Aucun genre.
-						</td>
-						<td>
-							<a class="btn btn-primary" href="{{ url_for('genres_ajouter_wtf') }}" role="button">Ajouter</a>
-						</td>
-					</tr>
-				</tbody>
-            {% endfor %}
-			</table>
-		</div>
-	</div>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5); /* Ajustez l'opacité selon les besoins */
+        z-index: 0;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+        color: #6c757d; /* Couleur de l'écriture en gris */
+    }
+
+    .navbar-custom {
+        background-color: #343a40; /* Gris foncé */
+    }
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+        color: #ffffff !important; /* Blanc pour le texte */
+    }
+
+    .brand-custom {
+        background-color: #343a40; /* Gris foncé */
+        color: #ffffff !important; /* Blanc pour le texte */
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .header-custom h1, .header-custom p, .header-custom h2 {
+        color: #343a40; /* Gris foncé */
+        text-shadow: 0 0 1px #ffffff, 0 0 3px #6c757d, 0 0 .5rem #6c757d, 0 0 2rem #6c757d; /* Ajustez selon les besoins */
+    }
+
+    .small-text-custom {
+        color: #343a40; /* Gris foncé */
+        text-shadow: 0 0 1px #ffffff, 0 0 3px #6c757d, 0 0 .5rem #6c757d, 0 0 2rem #6c757d; /* Ajustez selon les besoins */
+    }
+
+    .card-custom {
+        background-color: transparent; /* Fond transparent pour les cartes */
+        color: #343a40; /* Gris foncé pour le texte des cartes */
+    }
+
+    .btn-custom {
+        background-color: #343a40; /* Gris foncé pour les boutons */
+        color: #ffffff !important; /* Blanc pour le texte des boutons */
+        box-shadow: 0 0 2px #6c757d, 0 0 4px #ffffff, 0 0 1rem rgba(255, 255, 255, .3), 0 0 4rem rgba(255, 255, 255, .3);
+    }
+
+    .text-custom {
+        color: #343a40 !important; /* Gris foncé pour les textes à l'intérieur des cartes */
+    }
+
+    .table-custom th, .table-custom td {
+        color: #343a40; /* Gris foncé */
+        background-color: transparent !important; /* Fond transparent */
+    }
+</style>
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="container-fluid content">
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand brand-custom" href="{{ url_for('mapageprincipale') }}">MOD 164 RT EPSIC</a>
+            <a class="navbar-brand brand-custom" href="#">Agents</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Propriétés</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="jumbotron text-center mt-5 header-custom">
+        <h1 class="display-4">Données Agents</h1>
+    </header>
+
+    <!-- Agents Data -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-custom">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prenom</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Telephone</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ row.ID_agents }}</td>
+                            <td>{{ row.nom }}</td>
+                            <td>{{ row.prenom }}</td>
+                            <td>{{ row.email }}</td>
+                            <td>{{ row.telephone }}</td>
+                            <td>
+                                <a class="btn btn-primary btn-custom" href="{{ url_for('genres_ajouter_wtf') }}" role="button">Ajouter</a>
+                                <a class="btn btn-warning btn-custom" href="{{ url_for('genre_update_wtf', id_genre_btn_edit_html=row.ID_agents) }}" role="button">Edit</a>
+                                <a class="btn btn-danger btn-custom" href="{{ url_for('genre_delete_wtf', id_genre_btn_delete_html=row.ID_agents) }}" role="button">Delete</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">Aucun agent trouvé.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
-

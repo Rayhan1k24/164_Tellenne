@@ -55,44 +55,6 @@ INSERT INTO `t_agents` (`ID_agents`, `nom`, `prenom`, `email`, `telephone`, `dat
     (4, 'Müller', 'Anna', 'anna.muller@example.com', '+49 30 1234567', '2024-04-25 13:20:30'),
     (5, 'Kim', 'Min-Ji', 'minji.kim@example.com', '+82 10-1234-5678', '2024-04-25 13:20:31');
 
--- Listage de la structure de table tellenne_rayhan_expi1a_immobilier.t_clients
-DROP TABLE IF EXISTS `t_clients`;
-CREATE TABLE IF NOT EXISTS `t_clients` (
-  `ID_clients` int NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `prenom` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `telephone` varchar(20) DEFAULT NULL,
-  `date_clients` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`ID_clients`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Listage des données de la table tellenne_rayhan_expi1a_immobilier.t_clients : ~5 rows (environ)
-INSERT INTO `t_clients` (`ID_clients`, `nom`, `prenom`, `email`, `telephone`, `date_clients`) VALUES
-    (1, 'Dubois', 'François', 'francois.dubois@example.com', '+33 6 98 76 54 32', '2024-04-25 13:23:16'),
-    (2, 'Johnson', 'Michael', 'michael.johnson@example.com', '+1 555-987-6543', '2024-04-25 13:23:17'),
-    (3, 'Martinez', 'Maria', 'maria.martinez@example.com', '+34 645 98 76 54', '2024-04-25 13:23:18'),
-    (4, 'Schmidt', 'Klaus', 'klaus.schmidt@example.com', '+49 176 98765432', '2024-04-25 13:23:19'),
-    (5, 'Lee', 'Ji-Hyun', 'jihyun.lee@example.com', '+82 10-9876-5432', '2024-04-25 13:23:20');
-
--- Listage de la structure de table tellenne_rayhan_expi1a_immobilier.t_mails
-DROP TABLE IF EXISTS `t_mails`;
-CREATE TABLE IF NOT EXISTS `t_mails` (
-  `ID_mails` int NOT NULL AUTO_INCREMENT,
-  `mails_priver` varchar(255) DEFAULT NULL,
-  `mails_professionelle` varchar(255) DEFAULT NULL,
-  `date_mails` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`ID_mails`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Listage des données de la table tellenne_rayhan_expi1a_immobilier.t_mails : ~5 rows (environ)
-INSERT INTO `t_mails` (`ID_mails`, `mails_priver`, `mails_professionelle`, `date_mails`) VALUES
-    (1, 'francois.dubois@gmail.com', 'jean.dupont@companyname.com', '2024-04-25 13:24:20'),
-    (2, 'michael.johnson@yahoo.com', 'emily.smith@corporationinc.com', '2024-04-25 13:24:21'),
-    (3, 'maria.martinez@hotmail.com', 'carlos.garica@consultingfirm.org', '2024-04-25 13:24:22'),
-    (4, 'klaus.schmidt@outlook.com', 'anna.muller@lawfirmname.net', '2024-04-25 13:24:23'),
-    (5, 'jihyun.lee@icloud.com', 'min-ji.kim@techstartup.biz', '2024-04-25 13:24:26');
-
 -- Listage de la structure de table tellenne_rayhan_expi1a_immobilier.t_genre
 DROP TABLE IF EXISTS `t_genre`;
 CREATE TABLE IF NOT EXISTS `t_genre` (
@@ -123,11 +85,11 @@ CREATE TABLE IF NOT EXISTS `t_film` (
 
 -- Listage des données de la table tellenne_rayhan_expi1a_immobilier.t_film : ~5 rows (environ)
 INSERT INTO `t_film` (`ID_film`, `nom_film`, `email`, `telephone`, `date_film`) VALUES
-    (1, 'Dubois','francois.dubois@example.com', '+33 6 98 76 54 32', '2024-04-25 13:26:01'),
-    (2, 'Johnson','michael.johnson@example.com', '+1 555-987-6543', '2024-04-25 13:26:04'),
-    (3, 'Martinez','maria.martinez@example.com', '+34 645 98 76 54', '2024-04-25 13:26:05'),
-    (4, 'Schmidt','klaus.schmidt@example.com', '+49 176 98765432', '2024-04-25 13:26:06'),
-    (5, 'Lee','jihyun.lee@example.com', '+82 10-9876-5432', '2024-04-25 13:26:07');
+    (1, 'APARTMENT TOUR','APARTMENT-TOUR@example.com', '+33 6 98 76 54 32', '2024-04-25 13:26:01'),
+    (2, 'Maison à étages','Maison-à-étages@example.com', '+1 555-987-6543', '2024-04-25 13:26:04'),
+    (3, 'Villa Duplex','Villa-Duplex@example.com', '+34 645 98 76 54', '2024-04-25 13:26:05'),
+    (4, 'Chalet Mont-Blanc','Chalet-Mont-Blanc@example.com', '+49 176 98765432', '2024-04-25 13:26:06'),
+    (5, 'Manhattan Studio High-Rise','Manhattan-Studio-High-Rise@example.com', '+82 10-9876-5432', '2024-04-25 13:26:07');
 
 -- Listage de la structure de table tellenne_rayhan_expi1a_immobilier.t_genre_film
 DROP TABLE IF EXISTS `t_genre_film`;
@@ -145,11 +107,11 @@ CREATE TABLE IF NOT EXISTS `t_genre_film` (
 
 -- Insertion des données dans la table t_genre_film
 INSERT INTO `t_genre_film` (`ID_genre_film`, `fk_genre_film`, `fk_film_genre`, `date_genre_film`) VALUES
-    (1, 2, 2, '2024-04-25 11:27:24'),
-    (2, 4, 4, '2024-04-25 11:27:24'),
-    (3, 1, 1, '2024-04-25 11:27:25'),
-    (4, 5, 5, '2024-04-25 11:27:25'),
-    (5, 3, 3, '2024-04-25 11:27:26');
+    (1, 2, 4, '2024-04-25 11:27:24'),
+    (2, 4, 1, '2024-04-25 11:27:24'),
+    (3, 1, 3, '2024-04-25 11:27:25'),
+    (4, 5, 2, '2024-04-25 11:27:25'),
+    (5, 3, 5, '2024-04-25 11:27:26');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
