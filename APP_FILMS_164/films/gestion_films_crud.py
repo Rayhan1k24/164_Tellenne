@@ -77,7 +77,7 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
 @app.route("/film_update", methods=['GET', 'POST'])
 def film_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
-    ID_film_update = request.values['id_film_btn_edit_html']
+    id_film_update = request.values['id_film_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
     form_update_film = FormWTFUpdateFilm()
@@ -90,7 +90,7 @@ def film_update_wtf():
             telephone = form_update_film.telephone.data
             date_film = form_update_film.date_film.data
 
-            valeur_update_dictionnaire = {"value_ID_film": ID_film_update,
+            valeur_update_dictionnaire = {"value_ID_film": id_film_update,
                                           "value_nom_film": nom_film,
                                           "value_email": email,
                                           "value_telephone": telephone,
@@ -111,12 +111,12 @@ def film_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('films_genres_afficher', id_film_sel=ID_film_update))
+            return redirect(url_for('films_genres_afficher', id_film_sel=id_film_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_genre" de la "t_genre"
             str_sql_id_film = "SELECT * FROM t_film " \
                                "WHERE ID_film = %(value_id_film)s"
-            valeur_select_dictionnaire = {"value_id_film": ID_film_update}
+            valeur_select_dictionnaire = {"value_id_film": id_film_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_film, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom genre" pour l'UPDATE
