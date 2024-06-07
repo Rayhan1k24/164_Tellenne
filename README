@@ -16,16 +16,16 @@ VEUILLEZ NOTER : Sélectionnez l'option pour inclure Python dans le "PATH" penda
 Installez "GIT" à partir de https://gitforwindows.org/.
 Le test de "GIT" se fait dans le programme "PyCharm".
 ```
-
 Voici toutes les configurations qu'il faudra faire :
 ```text
 1. Téléchargez et installez "PyCharm" (version Community). Utilisez cette version de l'IDE pour faire fonctionner le projet.
 2. Pendant l'installation, assurez-vous de sélectionner toutes les options telles que les associations de fichiers et l'ajout au PATH.
-3. Lancez "PyCharm" pour la première fois afin de le configurer. Cliquez sur le bouton "New Project".
-4. Choisissez un nouveau répertoire vide sur votre disque local pour ce projet.
-5. Il est crucial de sélectionner le répertoire que vous venez de créer, car "PyCharm" y configurera automatiquement un environnement virtuel (venv).
-6. Dans le menu, allez dans File -> Settings -> Editor -> General -> Auto Import (section Python) et cochez l'option "Show auto-import tooltip".
-7. "PyCharm" ouvrira une fenêtre avec le contenu de "main.py" pour configurer les actions "UNDO" et "REDO".
+3. Lancez "PyCharm" pour la première fois afin de le configurer. 
+4. Cliquez sur le bouton "New Project".
+5. Choisissez un nouveau répertoire vide sur votre disque local pour ce projet.
+6. Il est crucial de sélectionner le répertoire que vous venez de créer, car "PyCharm" y configurera automatiquement un environnement virtuel (venv).
+7. Dans le menu, allez dans File -> Settings -> Editor -> General -> Auto Import (section Python) et cochez l'option "Show auto-import tooltip".
+8. "PyCharm" ouvrira une fenêtre avec le contenu de "main.py" pour configurer les actions "UNDO" et "REDO".
 Sélectionnez tout le texte avec "CTRL-A", coupez-le avec "CTRL-X", puis annulez l'action avec "CTRL-Z". Refaites l'action avec "CTRL-Y". "PyCharm" vous demandera de confirmer l'utilisation de "CTRL-Y" pour l'action "REDO".
 ```
 Veillez suivre la procédure pour que vous puissiez faire fonctionner mon projet : 
@@ -42,5 +42,4 @@ Veillez suivre la procédure pour que vous puissiez faire fonctionner mon projet
 10. Dans la console, un lien tel que "Running on http://127.0.0.1:5005" apparaîtra. Cliquez dessus pour ouvrir le projet dans votre navigateur.
 11. Vous êtes maintenant sur l'interface utilisateur de mon projet !
 ```
-
 Remarque : Suivez scrupuleusement chaque étape afin de configurer votre environnement correctement et d'assurer le bon fonctionnement de mon projet sans encombre.
